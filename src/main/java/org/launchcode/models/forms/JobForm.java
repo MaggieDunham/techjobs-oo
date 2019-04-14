@@ -16,25 +16,34 @@ import java.util.ArrayList;
 public class JobForm {
 
     @NotNull
-    @Size(min=1, message = "Name may not be empty")
+    @Size(min = 1, message = "Name may not be empty")
     private String name;
 
     @NotNull
     private int employerId;
 
-    /*
-        TODO #3 - Included other fields needed to create a job,
-        with correct validation attributes and display names.
-        Don't forget to add getters and setters
-     */
-
+    @NotNull
     private ArrayList<Employer> employers;
+
+    @NotNull
+    private int locationId;
+
+    @NotNull
     private ArrayList<Location> locations;
-    private ArrayList<CoreCompetency> coreCompetencies;
+    @NotNull
+    private int positionTypeId;
+
+    @NotNull
     private ArrayList<PositionType> positionTypes;
 
-    public JobForm() {
+    @NotNull
+    private int coreCompetencyId;
 
+    @NotNull
+    private ArrayList<CoreCompetency> coreCompetencies;
+
+
+    public JobForm() {
         JobData jobData = JobData.getInstance();
 
         /*
@@ -43,8 +52,21 @@ public class JobForm {
 
         employers = jobData.getEmployers().findAll();
 
+        locations = jobData.getLocations().findAll();
+
+        positionTypes = jobData.getPositionTypes().findAll();
+
+        coreCompetencies = jobData.getCoreCompetencies().findAll();
+
+
     }
 
+
+    /*
+        TODO #3 - Included other fields needed to create a job,
+        with correct validation attributes and display names.
+        Don't forget to add getters and setters
+     */
     public String getName() {
         return name;
     }
@@ -69,12 +91,44 @@ public class JobForm {
         this.employers = employers;
     }
 
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
     public ArrayList<Location> getLocations() {
         return locations;
     }
 
     public void setLocations(ArrayList<Location> locations) {
         this.locations = locations;
+    }
+
+    public int getPositionTypeId() {
+        return positionTypeId;
+    }
+
+    public void setPositionTypeId(int positionTypeId) {
+        this.positionTypeId = positionTypeId;
+    }
+
+    public ArrayList<PositionType> getPositionTypes() {
+        return positionTypes;
+    }
+
+    public void setPositionTypes(ArrayList<PositionType> positionTypes) {
+        this.positionTypes = positionTypes;
+    }
+
+    public int getCoreCompetencyId() {
+        return coreCompetencyId;
+    }
+
+    public void setCoreCompetencyId(int coreCompetencyId) {
+        this.coreCompetencyId = coreCompetencyId;
     }
 
     public ArrayList<CoreCompetency> getCoreCompetencies() {
@@ -85,11 +139,4 @@ public class JobForm {
         this.coreCompetencies = coreCompetencies;
     }
 
-    public ArrayList<PositionType> getPositionTypes() {
-        return positionTypes;
-    }
-
-    public void setPositionTypes(ArrayList<PositionType> positionTypes) {
-        this.positionTypes = positionTypes;
-    }
 }
