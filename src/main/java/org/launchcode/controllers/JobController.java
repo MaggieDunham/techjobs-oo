@@ -1,7 +1,6 @@
 package org.launchcode.controllers;
 
-import org.launchcode.models.CoreCompetency;
-import org.launchcode.models.Employer;
+import org.launchcode.models.*;
 import org.launchcode.models.forms.JobForm;
 import org.launchcode.models.data.JobData;
 import org.springframework.stereotype.Controller;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.Locale;
 
 /**
  * Created by LaunchCode
@@ -34,7 +34,7 @@ public class JobController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
         model.addAttribute(new JobForm());
-        model.addAttribute("title","Add Job");
+        //model.addAttribute("title","Add Job");
         return "new-job";
     }
 
@@ -42,35 +42,36 @@ public class JobController {
     public String add(Model model, @Valid JobForm jobForm, Errors errors) {
 
         if(errors.hasErrors()) {
+            model.addAttribute("jobForm", jobForm);
             return "new-job";
         }
         // TODO #6 - Validate the JobForm model, and if valid, create a
         // new Job and add it to the jobData data store. Then
         // redirect to the job detail view for the new Job.
-        Job job = new Job();
-
-        job.setName(jobForm.getName());
-
-        job.setEmployer(
-                jobData.getEmployers().findById(jobForm.getEmployerId()));
-
-        job.setLocation(
-                jobData.getLocations().findById(jobForm.getLocationId()));
-
-        job.setPositionType(
-                jobData.getPositionTypes().findById(jobForm.getPositionTypeId()));
-
-        job.setCoreCompetency(
-                jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
 
 
-
-        jobData.add(job);
-        model.addAttribute("job", job);
+        String name = jobForm.getName();
 
 
+        Employer employer = jobData.getEmployers().findById(jobForm.getEmployerId());
 
-        return "redirect:?id=" + job.getId();
+
+        Location location = jobData.getLocations().findById(jobForm.getLocationId());
+
+
+        PositionType positionType = jobData.getPositionTypes().findById(jobForm.getPositionTypeId());
+
+
+        CoreCompetency coreCompetency = jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId());
+
+        Job newJob = new Job(name, employer, location, positionType, coreCompetency);
+
+        jobData.add(newJob);
+
+
+
+
+        return "redirect:?id=" + newJob.getId();
 
     }
 }

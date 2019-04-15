@@ -22,25 +22,27 @@ public class JobForm {
     @NotNull
     private int employerId;
 
-    @NotNull
-    private ArrayList<Employer> employers;
 
     @NotNull
     private int locationId;
 
     @NotNull
-    private ArrayList<Location> locations;
-    @NotNull
     private int positionTypeId;
 
-    @NotNull
-    private ArrayList<PositionType> positionTypes;
 
     @NotNull
     private int coreCompetencyId;
 
-    @NotNull
-    private ArrayList<CoreCompetency> coreCompetencies;
+ /*
+        TODO #3 - Included other fields needed to create a job,
+        with correct validation attributes and display names.
+        Don't forget to add getters and setters
+     */
+
+ private ArrayList<Employer>employers;
+ private ArrayList<Location>locations;
+ private ArrayList<PositionType>positionTypes;
+ private ArrayList<CoreCompetency>coreCompetencies;
 
 
     public JobForm() {
@@ -62,11 +64,7 @@ public class JobForm {
     }
 
 
-    /*
-        TODO #3 - Included other fields needed to create a job,
-        with correct validation attributes and display names.
-        Don't forget to add getters and setters
-     */
+
     public String getName() {
         return name;
     }
